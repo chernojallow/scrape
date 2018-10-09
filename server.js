@@ -32,7 +32,7 @@ app.get("/scrape", function (req, res) {
 
             if (title && link) {
                 // Insert the data in the scrapedData db
-                db.places.insert({
+                db.something.insert({
                     title: title,
                     link: link
                 },
