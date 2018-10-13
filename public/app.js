@@ -1,5 +1,5 @@
 // Grab the articles as a json
-$.getJSON("/all", function(data) {
+$.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
@@ -8,9 +8,6 @@ $.getJSON("/all", function(data) {
   });
   
   
-
-  
-
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
   // Empty the notes from the note section
@@ -73,4 +70,3 @@ $(document).on("click", "#savenote", function() {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
-
