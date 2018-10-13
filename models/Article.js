@@ -13,6 +13,18 @@ var ArticleSchema = new Schema({
         required: true
     },
 
+
+    summary: {
+        type: String,
+        required: true
+    },
+    imgLink: {
+        type: String,
+        required: true
+    },
+
+
+
 });
 
 var Article = mongoose.model("Article", ArticleSchema);
