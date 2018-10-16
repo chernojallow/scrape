@@ -54,8 +54,6 @@ app.get("/scrape", function (req, res) {
           return res.json(err);
         });
 
-
-
     });
   });
 
@@ -118,6 +116,29 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
+
+
+// Delete a Comment 
+app.post('/articles:id', function (req, res){
+
+  // Collect comment id
+
+ // var commentId = req.params.id;
+
+  // Find and Delete the Comment using the Id
+  db.Note.findByIdAndRemove({_id: req.params.id}, function (err, todo) {  
+    
+    if (err) {
+      console.log(err);
+    } 
+    else {
+      // Send Success Header
+      res.sendStatus(200);
+    }
+
+  });
+
+});
 
 // Listen on port 3000
 app.listen(PORT, function () {

@@ -7,7 +7,7 @@ $.getJSON("/articles", function(data) {
     }
   });
   
-  
+
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
   // Empty the notes from the note section
@@ -31,6 +31,7 @@ $(document).on("click", "p", function() {
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+      $("#notes").append("<button data-id='" + data._id + "' id='deletenote'>Delete</button>");
 
       // If there's a note in the article
       if (data.note) {
@@ -69,4 +70,30 @@ $(document).on("click", "#savenote", function() {
   // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
   $("#bodyinput").val("");
+});
+
+
+ // Click Listener for FORM SUBMISSION to DELETE a comment
+ $('#deletenote').on('click', function(){
+
+  // Get _id of comment to be deleted
+  var commentId = $(this).data("id");
+
+  // URL root (so it works in eith Local Host for Heroku)
+
+  ///var baseURL = window.location.origin;
+
+  // AJAX Call to delete Comment
+  $.ajax({
+    url: '/articles/' + commentId,
+    type: 'POST',
+  })
+  .done(function() {
+    // Refresh the Window after the call is done
+    location.reload();
+  });
+  
+  // Prevent Default
+  return false;
+
 });
