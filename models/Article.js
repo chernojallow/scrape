@@ -1,36 +1,49 @@
-var mongoose = require("mongoose");
 
-// Save a reference to the Schema construction 
+
+// Require Mongoose
+var mongoose = require('mongoose');
+
+// Create a Schema Class
 var Schema = mongoose.Schema;
 
+// Create Article Schema
 var ArticleSchema = new Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    link: {
-        type: String,
-        required: true
-    },
+
+  // Title of Article
+  title: {
+    type: String,
+    required: true
+  },
+
+  // Link to Article
+  link: {
+    type: String,
+    required: true
+  },
+
+  // Summary of Article
+  summary: {
+    type: String,
+    required: true
+  },
 
 
-    summary: {
-        type: String,
-        required: true
-    },
-    imgLink: {
-        type: String,
-        required: true
-    },
+  imgLink: {
+    type: String,
+    required: true
+  },
 
-    note: {
-        type: Schema.Types.ObjectId,
-        ref: "Note"
-      }
+
+  // Create a relation with the Comment model
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+  }]
 
 });
 
-var Article = mongoose.model("Article", ArticleSchema);
+// Create the Article model with Mongoose
+var Article = mongoose.model('Article', ArticleSchema);
 
-// Exports the Article model
+// Export the Model
 module.exports = Article;

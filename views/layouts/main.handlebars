@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ 
+    <title> Web Scraper</title>
+
+   <!-- <link rel="icon" href="assets/images/newspaper_icon.png"> -->
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+   
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--  <link rel="stylesheet" href="assets/style/style.css"> -->
+  </head>
+
+  <body>
+  
+
+    <!-- Page Content -->
+    <main> 
+
+      <!-- Site Info Container -->
+      <div class="container">
+        <ul class="collection with-header">
+          <li class="collection-header grey lighten-2"><h4><b>Welcome to Web Scraping!</b></h4></li>
+          <li class="collection-item">This application lets you read and comment on news articles that were scrapped from the web.</li>
+        </ul>
+      </div>
+
+
+      <!-- Render All Articles -->
+      <div class="container">
+        {{{body}}}
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer grey darken-3">
+      <div class="footer-copyright">
+        <div class="container">
+        © Author cannot claim copyright. All article data was web scraped from 
+        <a class="grey-text text-lighten-4" href="http://www.theonion.com/">www.theonion.com</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Link in jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Materialize - Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+  </body>
+
+</html>
