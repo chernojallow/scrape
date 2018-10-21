@@ -1,7 +1,6 @@
 
 $(document).ready(function(){
 
-
   // Click Listener to add a comment
   $('.addComment-button').on('click', function(){
 
@@ -13,8 +12,8 @@ $(document).ready(function(){
     var baseURL = window.location.origin;
 
     // Get Form Data by Id
-    var frmName = "form-add-" + id;
-    var frm = $('#' + frmName);
+    var name = "form-add-" + id;
+    var frm = $('#' + name);
 
 
     // AJAX Call to delete Comment
@@ -32,7 +31,6 @@ $(document).ready(function(){
     return false;
 
   });
-
 
   // Click Listener to delete a comment 
   $('.deleteComment').on('click', function(){

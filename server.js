@@ -6,17 +6,22 @@ var mongoose = require("mongoose");
 var cheerio = require("cheerio");
 var exphbs = require("express-handlebars");
 var request = require("request");
-var mongojs = require("mongojs");
-var path = require("path");
-var Comment = require("./models/Note.js");
+
+
+var Comment = require("./models/Comment.js");
 var Article = require("./models/Article.js");
+
+
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 
 // Initialize Express
 var app = express();
 var PORT = 8080;
-var db = require("./models");
-
 
 app.use(express.static("public"));
 
@@ -34,8 +39,6 @@ mongoose.connect("mongodb://localhost/scrape", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
 
 
-
-
 // Index Page Render (first visit to the site)
 app.get('/', function (req, res) {
 
@@ -43,32 +46,6 @@ app.get('/', function (req, res) {
   res.redirect('/scrape');
 
 });
-
-
-// Articles Page Render
-app.get('/articles', function (req, res) {
-
-  // Query MongoDB for all article entries (sort newest to top, assuming Ids increment)
-  Article.find().sort({})
-
-    // But also populate all of the comments associated with the articles.
-    .populate('comments')
-
-    // Then, send them to the handlebars template to be rendered
-    .exec(function (err, doc) {
-      // log any errors
-      if (err) {
-        console.log(err);
-      }
-      // or send the doc to the browser as a json object
-      else {
-        var hbsObject = { articles: doc }
-        res.render('index', hbsObject);
-      }
-    });
-
-});
-
 
 // Web Scrape Route
 app.get('/scrape', function (req, res) {
@@ -82,7 +59,7 @@ app.get('/scrape', function (req, res) {
     // This is an error handler for duplicate articles 
     var titlesArray = [];
 
-   // Now, we grab every h2 within an article tag, and do the following:
+    // Now, we grab every h2 within an article tag, and do the following:
     $('.story-body').each(function (i, element) {
 
       //save an empty result object
@@ -107,7 +84,7 @@ app.get('/scrape', function (req, res) {
             // If the count is 0, then the entry is unique and should be saved
             if (item == 0) {
 
-           
+
               var entry = new Article(result);
 
               // Save the entry to MongoDB
@@ -120,16 +97,16 @@ app.get('/scrape', function (req, res) {
                 else {
                   console.log(doc);
                 }
-              });
+                });
 
-            }
+             }
 
           });
         }
 
-      }
+     }
 
-    });
+ });
 
     // Redirect to the Articles Page, done at the end of the request for proper scoping
     res.redirect("/articles");
@@ -139,9 +116,33 @@ app.get('/scrape', function (req, res) {
 });
 
 
-// Add a Comment Route - **API**
-app.post('/add/:id', function (req, res) {
+// Articles Page Render
+app.get('/articles', function (req, res) {
 
+  // Grap every Article
+  Article.find({})
+
+    // But also populate all of the comments associated with the articles.
+    .populate('comments')
+
+    // Then, send them to the handlebars template to be rendered
+    .exec(function (err, doc) {
+      // log any errors
+      if (err) {
+        console.log(err);
+      }
+      // or send the doc to the browser as a json object
+      else {
+        var hbsObject = { articles: doc }
+        res.render('index', hbsObject);
+      }
+    });
+
+});
+
+
+// Add a Comment Route 
+app.post('/add/:id', function (req, res) {
 
   var id = req.params.id;
   var cAuthor = req.body.name;
@@ -199,7 +200,6 @@ app.post('/delete/:id', function (req, res) {
   });
 
 });
-
 
 app.listen(PORT, function () {
   console.log("App running on port!" + PORT);
