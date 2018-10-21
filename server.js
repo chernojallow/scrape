@@ -12,11 +12,24 @@ var Comment = require("./models/Comment.js");
 var Article = require("./models/Article.js");
 
 
+if(process.env.NODE_ENV == 'production'){
+  mongoose.connect('mongodb://heroku_2jc810zq:<dbpassword>@ds261429.mlab.com:61429/heroku_2jc810zq');
+}
+else{
+  mongoose.connect('mongodb://localhost/scrape');
+}
+var db = mongoose.connection;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// Show any Mongoose errors
+db.on('error', function(err) {
+  console.log('Mongoose Error: ', err);
+});
 
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+// Once logged in to the db through mongoose, log a success message
+db.once('open', function() {
+  console.log('Mongoose connection successful.');
+});
+
 
 
 // Initialize Express

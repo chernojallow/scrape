@@ -6,7 +6,7 @@
   <li>
     <div style="background-color: white;" class="collapsible-header grey lighten-2">
       <i class="material-icons">news</i> <b>{{updated}}</b>
-      <div style="clear: left; line-height: 110%; padding-bottom: 10px;"><b>Title:{{title}}</b></div>
+     <div style="clear: left; line-height: 110%; padding-bottom: 10px;"><b>Title:{{title}}</b></div> 
     </div>
     <div class="collapsible-body" style="background-color: white;">
       <p>
@@ -81,7 +81,7 @@
           {{!-- Add a Delete Button --}}
           <span class="badge">
             <form id="form-delete-{{_id}}" action="delete/{{_id}}" method="post">
-              <input class="btn-small deleteComment" data-id="{{_id}}" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
+              <input class="btn-small deleteComment" data-id="{{_id}}" type="submit" value="X" style="color: white; background-color: red; border-color: red;">
             </form>
           </span>
 
