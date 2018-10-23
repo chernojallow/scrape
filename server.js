@@ -14,7 +14,7 @@ var Article = require("./models/Article.js");
 
 
 if(process.env.NODE_ENV == 'production'){
-  mongoose.connect(`mongodb://${process.env.USER.NAME}:${process.env.USER.PASSWORD}@ds261429.mlab.com:61429/heroku_2jc810zq`);
+  mongoose.connect(`mongodb://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@ds261429.mlab.com:61429/heroku_2jc810zq`);
 }
 else{
   mongoose.connect('mongodb://localhost/scrape');
