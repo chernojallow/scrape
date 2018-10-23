@@ -6,6 +6,7 @@ var mongoose = require("mongoose");
 var cheerio = require("cheerio");
 var exphbs = require("express-handlebars");
 var request = require("request");
+require('dotenv').config();
 
 
 var Comment = require("./models/Comment.js");
@@ -13,7 +14,7 @@ var Article = require("./models/Article.js");
 
 
 if(process.env.NODE_ENV == 'production'){
-  mongoose.connect('mongodb://heroku_2jc810zq:<dbpassword>@ds261429.mlab.com:61429/heroku_2jc810zq');
+  mongoose.connect(`mongodb://${process.env.USER.NAME}:${process.env.USER.PASSWORD}@ds261429.mlab.com:61429/heroku_2jc810zq`);
 }
 else{
   mongoose.connect('mongodb://localhost/scrape');
