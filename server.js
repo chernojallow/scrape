@@ -48,9 +48,7 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scrape", { useNewUrlParser: true });
-mongoose.set('useFindAndModify', false);
+
 
 
 // Index Page Render (first visit to the site)
